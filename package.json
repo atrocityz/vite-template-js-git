@@ -1,0 +1,31 @@
+{
+  "name": "vite-template-js",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "browserslist": [
+    "last 2 versions, not dead, cover 99.5%"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "fast-glob": "^3.3.3",
+    "imagemin": "^9.0.0",
+    "imagemin-webp": "^8.0.0",
+    "postcss": "^8.5.2",
+    "postcss-pxtorem": "^6.1.0",
+    "sass": "^1.85.0",
+    "sharp": "^0.33.5",
+    "stylelint": "^16.14.1",
+    "svgo": "^3.3.2",
+    "vite": "^6.1.0",
+    "vite-plugin-image-optimizer": "^1.1.8"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1"
+  }
+}
