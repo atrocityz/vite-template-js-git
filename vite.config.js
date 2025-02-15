@@ -3,8 +3,26 @@ import path from 'path';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import glob from 'fast-glob';
 import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 const rootPath = './';
+
+function moveHtmlFiles() {
+  const distDir = path.resolve(__dirname, 'dist');
+  const pagesDir = path.join(distDir, 'pages');
+
+  if (fs.existsSync(pagesDir)) {
+    const files = fs.readdirSync(pagesDir);
+
+    files.forEach((file) => {
+      const source = path.join(pagesDir, file);
+      const destination = path.join(distDir, file);
+      fs.renameSync(source, destination);
+    });
+
+    fs.rmdirSync(pagesDir);
+  }
+}
 
 export default defineConfig({
   build: {
@@ -62,7 +80,13 @@ export default defineConfig({
       avif: {
         quality: 100
       }
-    })
+    }),
+    {
+      name: 'move-html-files',
+      closeBundle() {
+        moveHtmlFiles();
+      }
+    }
   ],
   css: {
     devSourcemap: true,
