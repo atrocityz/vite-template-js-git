@@ -12,10 +12,11 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@eslint/js": "^9.20.0",
     "autoprefixer": "^10.4.20",
+    "eslint": "^9.20.1",
     "fast-glob": "^3.3.3",
-    "imagemin": "^9.0.0",
-    "imagemin-webp": "^8.0.0",
+    "globals": "^15.15.0",
     "postcss": "^8.5.2",
     "postcss-pxtorem": "^6.1.0",
     "sass": "^1.85.0",

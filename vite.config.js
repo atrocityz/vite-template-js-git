@@ -1,20 +1,16 @@
 import { defineConfig } from 'vite';
 import path from 'path';
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import glob from 'fast-glob';
 import { fileURLToPath } from 'url';
-import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
-import imagemin from 'imagemin';
-import imageminWebp from 'imagemin-webp';
 
 const rootPath = './';
 
 export default defineConfig({
   build: {
-    // Минификация css в build версии
     minify: true,
     assetsDir: './assets/',
     outDir: './dist',
-    // Обработка всех страниц в папке page
     rollupOptions: {
       input: Object.fromEntries(
         glob
@@ -23,7 +19,18 @@ export default defineConfig({
             path.relative(__dirname, file.slice(0, file.length - path.extname(file).length)),
             fileURLToPath(new URL(file, import.meta.url))
           ])
-      )
+      ),
+      output: {
+        assetFileNames: ({ name }) => {
+          if (name && /\.(png|jpe?g|svg|gif|webp)$/.test(name)) {
+            return 'assets/images/[name].[hash][extname]';
+          }
+          if (name && /\.(woff2)$/.test(name)) {
+            return 'assets/fonts/[name].[hash][extname]';
+          }
+          return 'assets/[name].[hash][extname]';
+        }
+      }
     }
   },
   resolve: {
@@ -36,6 +43,7 @@ export default defineConfig({
   },
   plugins: [
     ViteImageOptimizer({
+      optimizeImages: true,
       svg: {
         plugins: ['removeDoctype', 'removeXMLProcInst', 'minifyStyles', 'sortAttrs', 'sortDefsChildren']
       },
@@ -47,23 +55,20 @@ export default defineConfig({
       },
       jpg: {
         quality: 100
+      },
+      webp: {
+        quality: 100
+      },
+      avif: {
+        quality: 100
       }
-    }),
-    {
-      ...imagemin(['./src/images/**/*.{jpg,png,jpeg}'], {
-        destination: './src/images/webp/',
-        plugins: [imageminWebp({ quality: 100 })]
-      }),
-      apply: 'serve'
-    }
+    })
   ],
   css: {
     devSourcemap: true,
     preprocessorOptions: {
       scss: {
-        // Автодобавление в каждый файл scss формата строки
         additionalData: `@use '@/styles/helpers' as *;`,
-        // Игнорирование предупреждения
         silenceDeprecations: ['legacy-js-api']
       },
       less: {},
