@@ -2,55 +2,44 @@ import { defineConfig } from 'vite';
 import path from 'path';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import glob from 'fast-glob';
-import { fileURLToPath } from 'url';
-import fs from 'fs';
 
-const rootPath = './';
-
-function moveHtmlFiles() {
-  const distDir = path.resolve(__dirname, 'dist');
-  const pagesDir = path.join(distDir, 'pages');
-
-  if (fs.existsSync(pagesDir)) {
-    const files = fs.readdirSync(pagesDir);
-
-    files.forEach((file) => {
-      const source = path.join(pagesDir, file);
-      const destination = path.join(distDir, file);
-      fs.renameSync(source, destination);
-    });
-
-    fs.rmdirSync(pagesDir);
-  }
-}
+const root = path.resolve(__dirname, 'src');
+const outDir = path.resolve(__dirname, 'dist');
+const htmlFiles = glob.sync('**/*.html', { cwd: root, ignore: ['**/node_modules/**', '**/_*'] });
 
 export default defineConfig({
+  root,
+  base: './',
+
   build: {
+    outDir,
+    emptyOutDir: true,
     minify: true,
-    assetsDir: './assets/',
-    outDir: './dist',
     rollupOptions: {
-      input: Object.fromEntries(
-        glob
-          .sync(['./*.html', './pages/**/*.html'])
-          .map((file) => [
-            path.relative(__dirname, file.slice(0, file.length - path.extname(file).length)),
-            fileURLToPath(new URL(file, import.meta.url))
-          ])
+      input: htmlFiles.reduce(
+        (acc, file) => ({
+          ...acc,
+          [file.replace(path.extname(file), '')]: path.resolve(root, file)
+        }),
+        {}
       ),
+
       output: {
         assetFileNames: ({ name }) => {
-          if (name && /\.(png|jpe?g|svg|gif|webp)$/.test(name)) {
-            return 'assets/images/[name].[hash][extname]';
+          name = name.toLowerCase();
+
+          if (/\.(png|jpe?g|svg|gif|webp)$/.test(name ?? '')) {
+            return 'assets/images/[name]-[hash][extname]';
           }
-          if (name && /\.(woff2)$/.test(name)) {
-            return 'assets/fonts/[name].[hash][extname]';
+          if (/\.(woff2)$/.test(name ?? '')) {
+            return 'assets/fonts/[name]-[hash][extname]';
           }
-          return 'assets/[name].[hash][extname]';
+          return 'assets/[name]-[hash][extname]';
         }
       }
     }
   },
+
   resolve: {
     alias: [
       {
@@ -59,6 +48,7 @@ export default defineConfig({
       }
     ]
   },
+
   plugins: [
     ViteImageOptimizer({
       optimizeImages: true,
@@ -80,14 +70,9 @@ export default defineConfig({
       avif: {
         quality: 100
       }
-    }),
-    {
-      name: 'move-html-files',
-      closeBundle() {
-        moveHtmlFiles();
-      }
-    }
+    })
   ],
+
   css: {
     devSourcemap: true,
     preprocessorOptions: {
@@ -99,6 +84,7 @@ export default defineConfig({
       stylus: {}
     }
   },
+
   markdown: {
     useRemarkGfm: true,
     useRehypeHighlight: true,
@@ -108,6 +94,5 @@ export default defineConfig({
       remarkPlugins: [],
       rehypePlugins: []
     }
-  },
-  base: `${rootPath}`
+  }
 });
