@@ -2,10 +2,14 @@ import { defineConfig } from 'vite';
 import path from 'path';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import glob from 'fast-glob';
+import injectHTML from 'vite-plugin-html-inject';
+
+/* Если нужно использовать спрайты, то достаточно раскомментировать импорт и вызов функции в plugins */
+// import IconSpritePlugin from './plugins/vite-plugin-icon-sprite';
 
 const root = path.resolve(__dirname, 'src');
 const outDir = path.resolve(__dirname, 'dist');
-const htmlFiles = glob.sync('**/*.html', { cwd: root, ignore: ['**/node_modules/**', '**/_*'] });
+const htmlFiles = glob.sync('**/*.html', { cwd: root, ignore: ['**/node_modules/**', '**/_*', '**/components/*'] });
 
 export default defineConfig({
   root,
@@ -56,21 +60,23 @@ export default defineConfig({
         plugins: ['removeDoctype', 'removeXMLProcInst', 'minifyStyles', 'sortAttrs', 'sortDefsChildren']
       },
       png: {
-        quality: 100
+        quality: 80
       },
       jpeg: {
-        quality: 100
+        quality: 80
       },
       jpg: {
-        quality: 100
+        quality: 80
       },
       webp: {
-        quality: 100
+        quality: 80
       },
       avif: {
-        quality: 100
+        quality: 80
       }
-    })
+    }),
+    injectHTML()
+    // IconSpritePlugin()
   ],
 
   css: {
