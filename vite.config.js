@@ -9,11 +9,12 @@ import injectHTML from 'vite-plugin-html-inject';
 
 const root = path.resolve(__dirname, 'src');
 const outDir = path.resolve(__dirname, 'dist');
-const htmlFiles = glob.sync('**/*.html', { cwd: root, ignore: ['**/node_modules/**', '**/_*', '**/components/*'] });
+const htmlFiles = glob.sync('**/*.html', { cwd: root, ignore: ['**/node_modules/**', '**/_*', '**/partials/*'] });
 
 export default defineConfig({
   root,
   base: './',
+  publicDir: 'resources',
 
   build: {
     outDir,
