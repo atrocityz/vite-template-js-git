@@ -1,5 +1,6 @@
 export default class Header {
   constructor() {
-    console.log('Hello');
+    // eslint-disable-next-line no-console
+    console.log('Hello')
   }
 }
