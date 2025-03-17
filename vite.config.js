@@ -3,9 +3,8 @@ import path from 'path'
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 import glob from 'fast-glob'
 import injectHTML from 'vite-plugin-html-inject'
-
-/* Если нужно использовать спрайты, то достаточно раскомментировать импорт и вызов функции в plugins */
-// import IconSpritePlugin from './plugins/vite-plugin-icon-sprite';
+import VitePluginSvgSpritemap from '@spiriit/vite-plugin-svg-spritemap'
+import { createHtmlPlugin } from 'vite-plugin-html'
 
 const root = path.resolve(__dirname, 'src')
 const outDir = path.resolve(__dirname, 'dist')
@@ -30,16 +29,17 @@ export default defineConfig({
       ),
 
       output: {
+        entryFileNames: 'assets/[name].js',
+        chunkFileNames: 'assets/[name].js',
         assetFileNames: ({ name }) => {
           name = name.toLowerCase()
-
-          if (/\.(png|jpe?g|svg|gif|webp)$/.test(name ?? '')) {
-            return 'assets/images/[name]-[hash][extname]'
+          if (/\.(png|jpe?g|gif|webp)$/.test(name ?? '')) {
+            return 'assets/images/[name][extname]'
           }
           if (/\.(woff2)$/.test(name ?? '')) {
-            return 'assets/fonts/[name]-[hash][extname]'
+            return 'assets/fonts/[name][extname]'
           }
-          return 'assets/[name]-[hash][extname]'
+          return 'assets/[name][extname]'
         },
       },
     },
@@ -76,8 +76,33 @@ export default defineConfig({
         quality: 80,
       },
     }),
+    VitePluginSvgSpritemap('./icons/*.svg', {
+      prefix: false,
+      route: 'sprite',
+      output: {
+        filename: '../sprite.svg',
+        name: 'sprite.svg',
+        view: false,
+        use: true,
+      },
+      svgo: {
+        plugins: [
+          {
+            name: 'removeStyleElement',
+          },
+          {
+            name: 'convertColors',
+            params: {
+              currentColor: true,
+            },
+          },
+        ],
+      },
+    }),
     injectHTML(),
-    // IconSpritePlugin()
+    createHtmlPlugin({
+      minify: true,
+    }),
   ],
 
   css: {
