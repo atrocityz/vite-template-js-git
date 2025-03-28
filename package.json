@@ -11,9 +11,12 @@
     "build": "npm run lint && vite build",
     "preview": "vite preview",
     "lint": "eslint src/**/*.{js,jsx} && stylelint src/**/*.{scss,css}",
-    "prettier": "prettier --write src/**/*.{js,jsx,scss,css,html}"
+    "prettier": "prettier --write src/**/*.{js,jsx,scss,css,html}",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
     "@eslint/js": "^9.20.0",
     "@spiriit/vite-plugin-svg-spritemap": "^4.0.0",
     "autoprefixer": "^10.4.20",
@@ -22,6 +25,8 @@
     "eslint-plugin-prettier": "^5.2.3",
     "fast-glob": "^3.3.3",
     "globals": "^15.15.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
     "postcss": "^8.5.2",
     "postcss-pxtorem": "^6.1.0",
     "prettier": "^3.5.3",
@@ -38,5 +43,11 @@
   },
   "dependencies": {
     "normalize.css": "^8.0.1"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,html,scss,css}": [
+      "npx prettier --write",
+      "npx eslint --fix"
+    ]
   }
 }
