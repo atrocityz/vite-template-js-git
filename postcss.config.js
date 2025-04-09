@@ -1,21 +1,25 @@
-import autoprefixer from 'autoprefixer';
-import postcssPxToRem from 'postcss-pxtorem';
+import postcssPxToRem from 'postcss-pxtorem'
+import postcssPresetEnv from 'postcss-preset-env'
 
 export default ({ env }) => {
-  const isProd = env === 'production';
-  const plugins = [];
+  const isProd = env === 'production'
+  const plugins = []
 
   if (isProd) {
     plugins.push(
       postcssPxToRem({
         propList: ['*'],
-        mediaQuery: true
+        mediaQuery: true,
       }),
-      autoprefixer()
-    );
+      postcssPresetEnv({
+        stage: 3,
+        autoprefixer: true,
+        browsers: 'defaults',
+      }),
+    )
   }
 
   return {
-    plugins
-  };
-};
+    plugins,
+  }
+}
