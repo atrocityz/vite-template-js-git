@@ -1,15 +1,15 @@
 // Подключение шрифтов, так же нужно подключить шрифты в html для preload
 @font-face {
-  src: url('../fonts/Inter-Regular.woff2') format('woff2');
-  font-family: 'Inter';
+  src: url("../fonts/Inter-Regular.woff2") format("woff2");
+  font-family: "Inter";
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  src: url('../fonts/Inter-Bold.woff2') format('woff2');
-  font-family: 'Inter';
+  src: url("../fonts/Inter-Bold.woff2") format("woff2");
+  font-family: "Inter";
   font-weight: 700;
   font-style: normal;
   font-display: swap;

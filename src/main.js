@@ -1,5 +1,5 @@
 // Подключение стилей
-import './styles/index.js'
+import "./styles/index.js"
 
 // Подключение скриптов
-import './scripts/index.js'
+import "./scripts/index.js"
