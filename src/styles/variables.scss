@@ -1,7 +1,5 @@
 // Определение стандартных css переменных
 :root {
-  box-sizing: border-box;
-
   // Colors
   --color-white: #fff;
   --color-black: #000;
@@ -12,7 +10,7 @@
   // Fonts
   --font-family: "Inter", sans-serif;
 
-  // Sizes
+  // Containers
   --container-width: #{fluid-to-laptop($container-desktop-width, $container-laptop-width)};
   --container-padding-x: 16px;
 
