@@ -21,8 +21,6 @@
     "@spiriit/vite-plugin-svg-spritemap": "^4.0.0",
     "autoprefixer": "^10.4.20",
     "eslint": "^9.20.1",
-    "eslint-config-prettier": "^10.1.1",
-    "eslint-plugin-prettier": "^5.2.3",
     "fast-glob": "^3.3.3",
     "globals": "^15.15.0",
     "husky": "^9.1.7",

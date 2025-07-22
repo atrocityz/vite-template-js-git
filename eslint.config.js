@@ -1,6 +1,5 @@
-import globals from 'globals'
 import pluginJs from '@eslint/js'
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
+import globals from 'globals'
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -8,7 +7,6 @@ export default [
   { languageOptions: { globals: globals.browser } },
   { ignores: ['**/*.config.js'] },
   pluginJs.configs.recommended,
-  eslintPluginPrettierRecommended,
   {
     rules: {
       'no-var': 'error',
