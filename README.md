@@ -84,6 +84,7 @@ npm i
 - [Работа с JavaScript](#работа-с-javascript)
 - [Чистый код](#чистый-код)
 - [Углубленная работа с Git и GitHub](#углубленная-работа-с-git-и-github)
+- [Полезные ресурсы](#полезные-ресурсы)
 
 ## Работа со стилями
 
@@ -142,4 +143,8 @@ npm i
 
 ## Полезные ресурсы
 
+- [Конвертер шрифтов](https://transfonter.org/)
+- [Конвертер картинок](https://tinypng.com/)
+- [Favicon генератор по картинке](https://favicon.io/favicon-converter/)
 - [Статья про именование коммитов](https://www.conventionalcommits.org/ru/v1.0.0/)
+- [Эмодзи для коммитов](https://gitmoji.dev/)
