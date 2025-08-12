@@ -8,14 +8,6 @@ _HTML, SCSS, PostCSS, JS, Prettier, Eslint, Commitlint, Husky, Vite_
 npx create-vite-template-js --git
 ```
 
-или
-
-```zsh
-git clone https://github.com/atrocityz/vite-template-js-git.git
-cd vite-template-js-git
-npm i
-```
-
 ### Первые шаги в использовании
 
 - Настроить конфигурацию eslint, prettier, stylelint под себя, если это требуется;
@@ -121,6 +113,15 @@ npm i
 
 ```html
 <load src="./partials/название-файла.html" />
+```
+
+Так же сборщик Vite при помощи плагина [@spiriit/vite-plugin-svg-spritemap](https://github.com/SpiriitLabs/vite-plugin-svg-spritemap), позволяет легко и удобно работать с svg иконками из папки **icons** как с svg спрайтом.
+Для использования SVG спрайтов используйте:
+
+```html
+<svg>
+  <use xlink:href="./sprite#название-иконки"></use>
+</svg>
 ```
 
 ## Работа с JavaScript
