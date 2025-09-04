@@ -14,6 +14,7 @@
     "prepare": "husky"
   },
   "devDependencies": {
+    "@atrocityz/vite-plugin-html-img-to-picture": "^1.0.5",
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
     "@eslint/js": "^9.20.0",
@@ -37,7 +38,6 @@
     "svgo": "^3.3.2",
     "vite": "^6.1.0",
     "vite-plugin-html": "^3.2.2",
-    "vite-plugin-html-img-to-picture": "^1.0.4",
     "vite-plugin-html-inject": "^1.1.2"
   },
   "lint-staged": {
